@@ -151,7 +151,7 @@ void Gui::mainThread(std::string externalPath)
 		}
 		ImGui::End();
 
-		if (ImGui::Begin("Var Viewer"))
+		if (ImGui::Begin("Var Viewerr"))
 		{
 			activeView = ActiveViewType::VarViewer;
 			drawAcqusitionSettingsWindow(activeView);
