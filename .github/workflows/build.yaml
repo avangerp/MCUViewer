@@ -4,7 +4,8 @@ name: build
 # Here, this action will be enabled on all pushes.
 # Modify this to fit your needs.
 on:
-    push
+    push:
+    workflow_dispatch:
 
 # Jobs section
 jobs:
