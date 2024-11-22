@@ -86,12 +86,12 @@ void Gui::mainThread(std::string externalPath)
 
 	fileHandler->init();
 
-	jlinkProbe = std::make_shared<JlinkDebugProbe>(logger);
+	// jlinkProbe = std::make_shared<JlinkDebugProbe>(logger);
 	stlinkProbe = std::make_shared<StlinkDebugProbe>(logger);
 	debugProbeDevice = stlinkProbe;
 	plotHandler->setDebugProbe(debugProbeDevice);
 
-	jlinkTraceProbe = std::make_shared<JlinkTraceProbe>(logger);
+	// jlinkTraceProbe = std::make_shared<JlinkTraceProbe>(logger);
 	stlinkTraceProbe = std::make_shared<StlinkTraceProbe>(logger);
 	traceProbeDevice = stlinkTraceProbe;
 	tracePlotHandler->setDebugProbe(traceProbeDevice);
@@ -151,7 +151,7 @@ void Gui::mainThread(std::string externalPath)
 		}
 		ImGui::End();
 
-		if (ImGui::Begin("Var Viewerr"))
+		if (ImGui::Begin("Var Viewer"))
 		{
 			activeView = ActiveViewType::VarViewer;
 			drawAcqusitionSettingsWindow(activeView);
@@ -979,14 +979,16 @@ bool Gui::openProject(std::string externalPath)
 		/* TODO refactor */
 		devicesList.clear();
 		if (plotHandler->getProbeSettings().debugProbe == 1)
-			debugProbeDevice = jlinkProbe;
+			// debugProbeDevice = jlinkProbe;
+			debugProbeDevice = stlinkProbe;
 		else
 			debugProbeDevice = stlinkProbe;
 
 		plotHandler->setDebugProbe(debugProbeDevice);
 
 		if (tracePlotHandler->getProbeSettings().debugProbe == 1)
-			traceProbeDevice = jlinkTraceProbe;
+			// traceProbeDevice = jlinkTraceProbe;
+			traceProbeDevice = stlinkTraceProbe;
 		else
 			traceProbeDevice = stlinkTraceProbe;
 

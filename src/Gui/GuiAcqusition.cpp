@@ -69,7 +69,7 @@ void Gui::drawDebugProbes()
 	drawTextAlignedToSize("Debug probe:", alignment);
 	ImGui::SameLine();
 
-	const char* debugProbes[] = {"STLINK", "JLINK"};
+	const char* debugProbes[] = {"STLINK"}; //, "JLINK"};
 	IDebugProbe::DebugProbeSettings probeSettings = plotHandler->getProbeSettings();
 	int32_t debugProbe = probeSettings.debugProbe;
 
@@ -80,7 +80,8 @@ void Gui::drawDebugProbes()
 
 		if (probeSettings.debugProbe == 1)
 		{
-			debugProbeDevice = jlinkProbe;
+			// debugProbeDevice = jlinkProbe;
+			debugProbeDevice = stlinkProbe;
 			shouldListDevices = true;
 		}
 		else
@@ -237,7 +238,7 @@ void Gui::drawTraceProbes()
 	drawTextAlignedToSize("Debug probe:", alignment);
 	ImGui::SameLine();
 
-	const char* debugProbes[] = {"STLINK", "JLINK"};
+	const char* debugProbes[] = {"STLINK"}; //, "JLINK"};
 	ITraceProbe::TraceProbeSettings probeSettings = tracePlotHandler->getProbeSettings();
 	int32_t debugProbe = probeSettings.debugProbe;
 
@@ -248,7 +249,8 @@ void Gui::drawTraceProbes()
 
 		if (probeSettings.debugProbe == 1)
 		{
-			traceProbeDevice = jlinkTraceProbe;
+			// traceProbeDevice = jlinkTraceProbe;
+			traceProbeDevice = stlinkTraceProbe;
 			shouldListDevices = true;
 		}
 		else
