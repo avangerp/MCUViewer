@@ -51,24 +51,6 @@ Gui::Gui(IFileHandler* fileHandler, spdlog::logger* logger)
     if (window == NULL)
         return;
 
-    // glfwMakeContextCurrent(window);
-	// glfwMaximizeWindow(window);
-
-    // IMGUI_CHECKVERSION();
-	// ImGui::CreateContext();
-	// ImPlot::CreateContext();
-
-    // ImFontConfig cfg;
-	// cfg.SizePixels = 13.0f * contentScale;
-
-    // ImGui::GetStyle().ScaleAllSizes(contentScale);
-
-    // //ImGuiIO& io = ImGui::GetIO(); // defined before
-	// io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-
-	// io.Fonts->AddFontDefault(&cfg);
-	// io.FontGlobalScale = 1.0f;
-
     id <MTLDevice> device = MTLCreateSystemDefaultDevice();
     id <MTLCommandQueue> commandQueue = [device newCommandQueue];
 
@@ -89,10 +71,6 @@ Gui::Gui(IFileHandler* fileHandler, spdlog::logger* logger)
 
     stlinkProbe = std::make_shared<StlinkDebugProbe>(logger);
 	debugProbeDevice = stlinkProbe;
-	// plotHandler->setDebugProbe(debugProbeDevice);
-
-    // ImGuiWindowClass window_class;
-	// window_class.DockNodeFlagsOverrideSet = ImGuiDockNodeFlags_NoTabBar;
 
     // Our state
     bool show_demo_window = false;
@@ -187,6 +165,8 @@ Gui::Gui(IFileHandler* fileHandler, spdlog::logger* logger)
         }
     }
 
+    logger->info("Exiting GUI main thread");
+
     // Cleanup
     ImGui_ImplMetal_Shutdown();
     ImGui_ImplGlfw_Shutdown();
@@ -194,4 +174,5 @@ Gui::Gui(IFileHandler* fileHandler, spdlog::logger* logger)
 
     glfwDestroyWindow(window);
     glfwTerminate();
+    fileHandler->deinit();
 }

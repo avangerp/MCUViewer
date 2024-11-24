@@ -65,10 +65,9 @@ CFLAGS += -I$(STLINK_DIR) -I$(STLINK_DIR)/lib/macos -I$(STLINK_DIR)/inc -I$(STLI
 CFLAGS += -I$(LIBUSB_DIR) -I$(LIBUSB_DIR)/lib/macos -I$(LIBUSB_DIR)/inc/libusb-1.0
 
 CFLAGS += -I$(NFD_DIR)/src/include -I$(NFD_DIR)/src -I$(FILEHANDLER_DIR) -I$(MEMORYREADER_DIR) -I$(CSVSTREAMER_DIR)
-# CFLAGS += -I/usr/local/include -I/opt/homebrew/include -I/opt/local/include
 
 CFLAGS += -Wall -Wformat
-CXXFLAGS = -std=c++20 $(CFLAGS) -Wl,-rpath,$(STLINK_DIR)/lib/macos
+CXXFLAGS = -std=c++20 $(CFLAGS)
 
 %.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
