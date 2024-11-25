@@ -41,45 +41,50 @@ static float getContentScale(GLFWwindow* window)
 	float xscale;
 	float yscale;
 	glfwGetWindowContentScale(window, &xscale, &yscale);
-	return (xscale + yscale) / 2.0f;
+	return (xscale + yscale) / 4.0f;
 }
 
 Gui::Gui(PlotHandler* plotHandler, ConfigHandler* configHandler, IFileHandler* fileHandler, TracePlotHandler* tracePlotHandler, std::atomic<bool>& done, std::mutex* mtx, GdbParser* parser, spdlog::logger* logger, std::string& projectPath) : plotHandler(plotHandler), configHandler(configHandler), fileHandler(fileHandler), tracePlotHandler(tracePlotHandler), done(done), mtx(mtx), parser(parser), logger(logger)
 {
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        return;
-
-    GLFWwindow* window = glfwCreateWindow(1500, 1000, (std::string("MCUViewer | ") + projectConfigPath).c_str(), NULL, NULL);
-    if (window == NULL)
-        return;
-    glfwMakeContextCurrent(window);
-	glfwMaximizeWindow(window);
-
-        // Setup Dear ImGui context
+	// Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImPlot::CreateContext();
 
+    // Setup style
+    ImGui::StyleColorsDark();
+    //ImGui::StyleColorsLight();
+
+    glfwSetErrorCallback(glfw_error_callback);
+    if (!glfwInit())
+        return;
+
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    GLFWwindow* window = glfwCreateWindow(1500, 1000, (std::string("MCUViewer | ") + projectConfigPath).c_str(), NULL, NULL);
+    if (window == NULL)
+        return;
+	glfwMakeContextCurrent(window);
+	glfwMaximizeWindow(window);
+
     contentScale = getContentScale(window);
 
     ImFontConfig cfg;
-	cfg.SizePixels = 7.0f * contentScale;
+	cfg.SizePixels = 13.0f * contentScale;
 
-    ImGui::GetStyle().ScaleAllSizes(contentScale);
+	ImGui::GetStyle().ScaleAllSizes(contentScale);
 
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;        // Enable Docking
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	io.Fonts->AddFontDefault(&cfg);
 	io.FontGlobalScale = 1.0f;
 
-    ImGui::StyleColorsDark();
     ImPlot::StyleColorsDark();
 
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     id <MTLDevice> device = MTLCreateSystemDefaultDevice();
     id <MTLCommandQueue> commandQueue = [device newCommandQueue];
+
+	// Setup Platform/Renderer backends
     ImGui_ImplGlfw_InitForOther(window, true);
     ImGui_ImplMetal_Init(device);
 
