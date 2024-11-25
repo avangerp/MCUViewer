@@ -26,14 +26,31 @@ SCROLLINGBUFFER_DIR = ./ScrollingBuffer/
 VARIABLE_DIR = ./Variable/
 CSVSTREAMER_DIR = ./CSVStreamer/
 MOVINGAVERAGE_DIR = ./MovingAverage/
+IMGUIPLUGINS_DIR = ./ImguiPlugins/
 CONFIGHANDLER_DIR = ./ConfigHandler/
 TRACEREADER_DIR = ./TraceReader/
+GUI_DIR = ./Gui/
+GDBPARSER_DIR = ./GdbParser/
+STATISTICS_DIR = ./Statistics/
 
 SOURCES = main.mm
-SOURCES += Gui.mm
+SOURCES += commons.cpp
+
+SOURCES += $(GUI_DIR)/Gui.mm
+SOURCES += $(GUI_DIR)/GuiAbout.mm
+SOURCES += $(GUI_DIR)/GuiAcqusition.mm
+SOURCES += $(GUI_DIR)/GuiImportVariables.mm
+SOURCES += $(GUI_DIR)/GuiPlots.mm
+SOURCES += $(GUI_DIR)/GuiSwoControl.mm
+SOURCES += $(GUI_DIR)/GuiSwoControl.mm
+SOURCES += $(GUI_DIR)/GuiSwoPlots.mm
+
+SOURCES += $(GDBPARSER_DIR)/GdbParser.cpp
+
 SOURCES += $(NFD_DIR)/src/nfd_cocoa.m
 SOURCES += $(FILEHANDLER_DIR)/NFDFileHandler.cpp
 SOURCES += $(MOVINGAVERAGE_DIR)/MovingAverage.cpp 
+SOURCES += $(IMGUIPLUGINS_DIR)/ImguiPlugins.cpp 
 SOURCES += $(CONFIGHANDLER_DIR)/ConfigHandler.cpp 
 SOURCES += $(TRACEREADER_DIR)/TraceReader.cpp $(TRACEREADER_DIR)/StlinkTraceProbe.cpp 
 SOURCES += $(MEMORYREADER_DIR)/MemoryReader.cpp $(MEMORYREADER_DIR)/StlinkDebugProbe.cpp
@@ -54,10 +71,14 @@ CFLAGS += -I$(GLFW_DIR)/inc -I$(GLFW_DIR)/lib/macos
 CFLAGS += -I$(SPDLOG_DIR) -I$(SPDLOG_DIR)/inc -I$(SPDLOG_DIR)/inc/spdlog -I$(SPDLOG_DIR)/inc/spdlog/cfg -I$(SPDLOG_DIR)/inc/spdlog/details -I$(SPDLOG_DIR)/inc/spdlog/fmt -I$(SPDLOG_DIR)/inc/spdlog/sinks -I$(SPDLOG_DIR)/lib/macos
 CFLAGS += -I$(RINGBUFFER_DIR)
 CFLAGS += -I$(PLOTHANDLER_DIR)
+CFLAGS += -I$(GUI_DIR)
+CFLAGS += -I$(STATISTICS_DIR)
+CFLAGS += -I$(GDBPARSER_DIR)
 CFLAGS += -I$(PLOT_DIR)
 CFLAGS += -I$(VARIABLE_DIR)
 CFLAGS += -I$(SCROLLINGBUFFER_DIR)
 CFLAGS += -I$(MOVINGAVERAGE_DIR)
+CFLAGS += -I$(IMGUIPLUGINS_DIR)
 CFLAGS += -I$(CONFIGHANDLER_DIR)
 CFLAGS += -I$(TRACEREADER_DIR)
 CFLAGS += -I$(MINI_DIR)/src/mini
@@ -72,7 +93,13 @@ CXXFLAGS = -std=c++20 $(CFLAGS)
 %.o:%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+%.o:$(GUI_DIR)/%.mm
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
 %.o:$(IMGUI_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%.o:$(GDBPARSER_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 %.o:$(IMGUI_DIR)/backends/%.cpp
@@ -112,6 +139,9 @@ CXXFLAGS = -std=c++20 $(CFLAGS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 %.o:$(MOVINGAVERAGE_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%.o:$(IMGUIPLUGINS_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 %.o:$(CONFIGHANDLER_DIR)/%.cpp
