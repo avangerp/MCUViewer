@@ -4,11 +4,11 @@
 #include <random>
 
 #include "logging.h"
-#include "register.h"
+// #include "register.h"
 
 StlinkTraceProbe::StlinkTraceProbe(spdlog::logger* logger) : logger(logger)
 {
-	init_chipids(const_cast<char*>("./chips"));
+	// init_chipids(const_cast<char*>("./chips"));
 }
 
 bool StlinkTraceProbe::stopTrace()

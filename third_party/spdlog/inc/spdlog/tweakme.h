@@ -78,12 +78,14 @@
 // In this case spdlog will try to include <fmt/format.h> so set your -I flag
 // accordingly.
 //
+// #ifndef SPDLOG_FMT_EXTERNAL
 // #define SPDLOG_FMT_EXTERNAL
+// #endif
+
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Uncomment to use C++20 std::format instead of fmt. This removes compile
-// time checking of format strings, but doesn't depend on the fmt library.
+// Uncomment to use C++20 std::format instead of fmt.
 //
 // #define SPDLOG_USE_STD_FORMAT
 ///////////////////////////////////////////////////////////////////////////////
@@ -103,7 +105,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Uncomment to customize level names (e.g. "MY TRACE")
 //
-// #define SPDLOG_LEVEL_NAMES { "MY TRACE", "MY DEBUG", "MY INFO", "MY WARNING", "MY ERROR", "MY CRITICAL", "OFF" }
+// #define SPDLOG_LEVEL_NAMES { "MY TRACE", "MY DEBUG", "MY INFO", "MY WARNING", "MY ERROR", "MY
+// CRITICAL", "OFF" }
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////

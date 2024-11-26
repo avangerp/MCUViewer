@@ -15,8 +15,8 @@
 #include "IDebugProbe.hpp"
 #include "IFileHandler.hpp"
 #include "ImguiPlugins.hpp"
-#include "JlinkDebugProbe.hpp"
-#include "JlinkTraceProbe.hpp"
+// #include "JlinkDebugProbe.hpp"
+// #include "JlinkTraceProbe.hpp"
 #include "Plot.hpp"
 #include "PlotHandler.hpp"
 #include "Popup.hpp"
@@ -28,7 +28,6 @@ class Gui
 {
    public:
 	Gui(PlotHandler* plotHandler, ConfigHandler* configHandler, IFileHandler* fileHandler, TracePlotHandler* tracePlotHandler, std::atomic<bool>& done, std::mutex* mtx, GdbParser* parser, spdlog::logger* logger, std::string& projectPath);
-	~Gui();
 
    private:
 	static constexpr bool showDemoWindow = false;
@@ -54,13 +53,13 @@ class Gui
 	TracePlotHandler* tracePlotHandler;
 
 	std::shared_ptr<IDebugProbe> stlinkProbe;
-	std::shared_ptr<IDebugProbe> jlinkProbe;
+	// std::shared_ptr<IDebugProbe> jlinkProbe;
 	std::shared_ptr<IDebugProbe> debugProbeDevice;
 	std::vector<std::string> devicesList{};
 	const std::string noDevices = "No debug probes found!";
 
 	std::shared_ptr<ITraceProbe> stlinkTraceProbe;
-	std::shared_ptr<ITraceProbe> jlinkTraceProbe;
+	// std::shared_ptr<ITraceProbe> jlinkTraceProbe;
 	std::shared_ptr<ITraceProbe> traceProbeDevice;
 
 	std::atomic<bool>& done;
@@ -80,7 +79,6 @@ class Gui
 
 	GdbParser* parser;
 
-	void mainThread(std::string externalPath);
 	void drawMenu();
 	void drawStartButton(PlotHandlerBase* activePlotHandler);
 	void drawDebugProbes();

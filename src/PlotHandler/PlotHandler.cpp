@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-#include "JlinkDebugProbe.hpp"
+// #include "JlinkDebugProbe.hpp"
 #include "StlinkDebugProbe.hpp"
 
 PlotHandler::PlotHandler(std::atomic<bool>& done, std::mutex* mtx, spdlog::logger* logger) : PlotHandlerBase(done, mtx, logger)
