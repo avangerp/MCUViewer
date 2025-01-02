@@ -71,7 +71,7 @@ void Gui::drawDebugProbes()
 	ImGui::SameLine();
 
 	#ifdef __APPLE__
-	const char* debugProbes[] = {"STLINK"}; //, "JLINK"};
+	const char* debugProbes[] = {"STLINK", "JLINK (not supported on macOS)"};
 	#else
 	const char* debugProbes[] = {"STLINK", "JLINK"};
 	#endif
@@ -87,6 +87,10 @@ void Gui::drawDebugProbes()
 		{
 			#ifndef __APPLE__
 			debugProbeDevice = jlinkProbe;
+			#else
+			debugProbe = 0;
+			probeSettings.debugProbe = debugProbe;
+			debugProbeDevice = stlinkProbe;
 			#endif
 			shouldListDevices = true;
 		}
@@ -261,7 +265,7 @@ void Gui::drawTraceProbes()
 	ImGui::SameLine();
 
 	#ifdef __APPLE__
-	const char* debugProbes[] = {"STLINK", "JLINK"};
+	const char* debugProbes[] = {"STLINK", "JLINK (not supported on macOS)"};
 	#else
 	const char* debugProbes[] = {"STLINK", "JLINK"};
 	#endif
