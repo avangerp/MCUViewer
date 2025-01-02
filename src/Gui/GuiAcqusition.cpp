@@ -261,7 +261,7 @@ void Gui::drawTraceProbes()
 	ImGui::SameLine();
 
 	#ifdef __APPLE__
-	const char* debugProbes[] = {"STLINK"}; //, "JLINK"};
+	const char* debugProbes[] = {"STLINK", "JLINK"};
 	#else
 	const char* debugProbes[] = {"STLINK", "JLINK"};
 	#endif
@@ -277,6 +277,10 @@ void Gui::drawTraceProbes()
 		{
 			#ifndef __APPLE__
 			traceProbeDevice = jlinkTraceProbe;
+			#else
+			debugProbe = 0;
+			probeSettings.debugProbe = debugProbe;
+			traceProbeDevice = stlinkTraceProbe;
 			#endif
 			shouldListDevices = true;
 		}
