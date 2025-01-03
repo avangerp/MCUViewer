@@ -39,3 +39,5 @@ test/MCUViewer_test/.settings/
 
 # Log files
 *.csv
+
+.DS_Store
